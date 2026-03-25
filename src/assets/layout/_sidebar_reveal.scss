@@ -1,0 +1,154 @@
+@use 'variables';
+
+@media screen {
+    .layout-container {
+        &.layout-reveal {
+            .layout-sidebar {
+                height: 100%;
+                top: 0;
+                transition: transform 0.3s cubic-bezier(0, 0, 0.2, 1);
+                transform: translateX(-14.75rem);
+                z-index: 999;
+
+                .sidebar-header {
+                    display: flex;
+                    justify-content: flex-end;
+                    align-items: center;
+                    gap: 1rem;
+                    padding: 1.5rem 1rem;
+
+                    .app-logo {
+                        .app-logo-small {
+                            display: inline;
+                            order: 1;
+                        }
+                        .app-logo-normal {
+                            display: none;
+                        }
+                    }
+
+                    .layout-sidebar-toggle {
+                        width: 32px;
+                        height: 32px;
+                        border-radius: 50%;
+                        padding: 0;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 1.1rem;
+                        background: none;
+                        color: #fff;
+                        border: none;
+                        cursor: pointer;
+                        box-shadow: none;
+                        transition: color 0.2s;
+
+                        &:hover,
+                        &:focus {
+                            color: #e5e7eb;
+                            outline: none;
+                        }
+
+                        svg {
+                            width: 20px;
+                            height: 20px;
+                            margin-left: 50%;
+                            stroke: currentColor;
+                        }
+                    }
+                }
+
+                .layout-menu-container {
+                    overflow: hidden;
+                }
+
+                .layout-menu {
+                    .layout-root-menuitem {
+                        > .layout-menuitem-root-text {
+                            > span {
+                                margin-right: auto;
+                            }
+                            > .layout-menuitem-root-icon {
+                                display: block;
+                                margin-right: 0.125rem;
+                            }
+                        }
+                    }
+
+                    ul {
+                        margin: 0;
+                        padding: 0;
+                        list-style-type: none;
+
+                        a {
+                            padding: 0.75rem 1rem;
+
+                            .layout-menuitem-text {
+                                order: 1;
+                                margin-right: auto;
+                            }
+
+                            .layout-submenu-toggler {
+                                order: 2;
+                                display: none;
+                                margin-right: 0.5rem;
+                            }
+
+                            .layout-menuitem-icon {
+                                order: 3;
+                                margin-right: 0;
+                                font-size: 1.25rem;
+                                width: auto;
+                            }
+                        }
+                    }
+                }
+            }
+
+            &.layout-reveal {
+                .layout-content-wrapper {
+                    margin-left: 4.25rem;
+                    transition: margin-left 0.3s cubic-bezier(0, 0, 0.2, 1);
+                }
+            }
+
+            &.layout-sidebar-active {
+                .layout-sidebar {
+                    transform: translateX(0);
+                    opacity: 1;
+                    background-color: #2a2a40;
+
+                    .layout-menu-container {
+                        overflow: auto;
+                    }
+
+                    .sidebar-header {
+                        padding: 1.5rem 2rem;
+                        justify-content: space-between;
+
+                        .app-logo {
+                            .app-logo-normal {
+                                display: inline;
+                            }
+                            .app-logo-small {
+                                display: none;
+                            }
+                        }
+                    }
+                }
+            }
+
+            &.layout-sidebar-anchored {
+                .sidebar-header {
+                    .layout-sidebar-anchor {
+                        background-color: var(--logo-color);
+                    }
+                }
+
+                .layout-content-wrapper {
+                    margin-left: 18rem;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,13 @@
+.layout-colorscheme-menu {
+    --logo-color: var(--primary-color); /* vivid purple */
+    --menu-bg: var(--surface-overlay); /* semi-transparent dark background */
+    --root-menuitem-text-color: var(--primary-color); /* purple text for top-level items */
+    --menuitem-text-color: var(--text-color); /* main text color */
+    --menuitem-icon-color: var(--primary-color); /* vivid purple icons */
+    --menuitem-hover-bg-color: var(--surface-hover); /* dark hover background */
+    --popup-submenu-item-text-color: var(--text-color); /* submenu text */
+    --popup-submenu-item-icon-color: var(--primary-color); /* vivid purple submenu icons */
+    --popup-submenu-item-hover-bg-color: var(--surface-hover); /* submenu hover bg */
+    --border-radius: var(--border-radius); /* consistent rounded corners */
+    --focus-ring-shadow: var(--focus-ring-shadow); /* purple focus outline */
+}

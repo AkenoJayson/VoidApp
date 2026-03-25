@@ -1,0 +1,18 @@
+.layout-primarycolor-menu {
+    --logo-color: var(--primary-color-text); /* white text on purple */
+    --menu-bg: linear-gradient(to left top, #7c3aed, #8b5cf6, #a78bfa); /* purple gradient */
+    --root-menuitem-text-color: var(--primary-color-text); /* white text */
+    --menuitem-text-color: var(--primary-color-text); /* white text */
+    --menuitem-icon-color: var(--primary-color-text); /* white icons */
+    --menuitem-hover-bg-color: rgba(255, 255, 255, 0.1); /* light hover effect */
+    --popup-submenu-item-text-color: var(--text-color); /* light gray text */
+    --popup-submenu-item-icon-color: var(--primary-color); /* vivid purple icons */
+    --popup-submenu-item-hover-bg-color: var(--surface-hover); /* dark hover */
+    --border-radius: var(--border-radius); /* rounded corners */
+    --focus-ring-shadow: var(--focus-ring-shadow); /* purple focus ring */
+}
+
+.layout-dark.layout-primarycolor-menu,
+.layout-dim.layout-primarycolor-menu {
+    --menu-bg: linear-gradient(to left top, #6d28d9, #7c3aed, #8b5cf6); /* darker purple tones for dark mode */
+}

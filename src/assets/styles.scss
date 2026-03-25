@@ -1,0 +1,150 @@
+@use 'tailwindcss';
+@use '@/assets/layout/layout.scss';
+@use 'primeicons/primeicons.css';
+
+// ============================================================
+// DESIGN TOKENS — single source of truth for the whole app.
+// ============================================================
+:root {
+    --color-surface: #2a2a40;
+    --color-surface-raised: #3c3f58;
+    --color-surface-high: #52528c;
+    --color-brand: #8b5cf6;
+    --color-brand-hover: #9d4edd;
+    --color-brand-muted: rgba(139, 92, 246, 0.15);
+    --color-text-primary: #f1f5f9;
+    --color-text-muted: #94a3b8;
+    --color-border: rgba(255, 255, 255, 0.08);
+}
+
+// ============================================================
+// GLOBAL SELECT LABEL
+// ============================================================
+.p-select-label,
+.p-select .p-select-label {
+    color: #ffffff;
+}
+
+// ============================================================
+// APP LOGOS
+// ============================================================
+.app-logo-full,
+.app-logo-icon {
+    height: 2rem;
+    transition: opacity 0.3s;
+}
+
+// ============================================================
+// SIDEBAR ICON SIZE
+// ============================================================
+.layout-menuitem-icon {
+    font-size: 1.25rem;
+    width: 1.25rem;
+}
+
+// ============================================================
+// BUTTONS — secondary variant
+// ============================================================
+.p-button.p-component.p-button-secondary {
+    background-color: #373752 !important;
+    border-color: #2a2a40 !important;
+    color: #ffffff !important;
+    transition:
+        background-color 0.3s ease,
+        border-color 0.3s ease;
+
+    &:hover {
+        background-color: var(--color-surface-high) !important;
+        border-color: var(--color-surface-high) !important;
+    }
+}
+
+// ============================================================
+// SELECT / DROPDOWN
+// ============================================================
+.p-select {
+    background: var(--color-surface) !important;
+    border-color: var(--color-surface) !important;
+}
+
+.p-select-overlay {
+    --p-select-overlay-border-color: var(--color-surface);
+}
+
+.p-select-overlay .p-component {
+    background-color: var(--color-surface);
+    border-color: #353550;
+    color: #ffffff;
+    --p-select-overlay-border-color: var(--color-surface);
+}
+
+.p-select-list-container {
+    background-color: var(--color-surface);
+    color: #ffffff;
+
+    .p-select-option:hover {
+        background-color: var(--color-surface-high) !important;
+        color: #ffffff !important;
+
+        .p-select-option-label {
+            color: #ffffff !important;
+        }
+    }
+
+    .p-select-option.p-select-option-selected {
+        background-color: var(--color-brand) !important;
+        color: #ffffff !important;
+    }
+}
+
+.p-select-option-label {
+    color: #ffffff;
+}
+
+.p-select-header {
+    background-color: #353550;
+    color: #ffffff;
+}
+
+.p-select.p-disabled * {
+    opacity: 1 !important;
+    background-color: #616197 !important;
+    color: #fff !important;
+}
+
+// ============================================================
+// INPUT
+// ============================================================
+.p-inputtext:disabled {
+    opacity: 1 !important;
+    background-color: #616197 !important;
+    color: #fff !important;
+}
+
+// ============================================================
+// DRAWER
+// ============================================================
+.p-drawer {
+    --p-drawer-background: var(--color-surface);
+    --p-drawer-border-color: #353550;
+}
+
+.p-drawer-header {
+    background-color: var(--color-surface);
+    color: #ffffff;
+}
+
+// ============================================================
+// POPOVER — hide default arrow
+// ============================================================
+.p-popover:before,
+.p-popover:after {
+    display: none !important;
+}
+
+// ============================================================
+// PROGRESS BAR
+// ============================================================
+.p-progressbar .p-progressbar-value {
+    background-color: var(--color-brand) !important;
+}

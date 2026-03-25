@@ -1,0 +1,149 @@
+// ── TOKENS ──────────────────────────────────────────────────
+//
+// Surface
+$dl-bg: #1e2038;
+$dl-border: rgba(124, 58, 237, 0.25);
+$dl-brand-top: #7c3aed;
+$dl-radius: 14px;
+//
+// Header
+$dl-header-bg: #1b1d33;
+$dl-header-border: rgba(255, 255, 255, 0.06);
+$dl-header-text: #ffffff;
+//
+// Content
+$dl-content-bg: #1e2038;
+$dl-text-primary: #e2e8f0;
+$dl-text-muted: #64748b;
+//
+// Footer
+$dl-footer-border: rgba(255, 255, 255, 0.06);
+//
+// Inputs
+$dl-input-bg: rgba(255, 255, 255, 0.04);
+$dl-input-border: rgba(255, 255, 255, 0.1);
+$dl-input-border-focus: #7c3aed;
+$dl-input-text: #e2e8f0;
+//
+// Overlay
+$dl-mask-bg: rgba(10, 10, 20, 0.75);
+
+// ── MASK ────────────────────────────────────────────────────
+
+.p-dialog-mask {
+    background: $dl-mask-bg !important;
+    backdrop-filter: blur(4px);
+}
+
+// ── DIALOG SHELL ────────────────────────────────────────────
+
+.p-dialog {
+    background: $dl-bg !important;
+    border: 1px solid $dl-border !important;
+    border-top: 2px solid $dl-brand-top !important;
+    border-radius: $dl-radius !important;
+    box-shadow:
+        0 0 0 1px rgba(124, 58, 237, 0.1),
+        0 24px 48px rgba(0, 0, 0, 0.5) !important;
+    overflow: hidden;
+    color: $dl-text-primary;
+}
+
+// ── HEADER ──────────────────────────────────────────────────
+
+.p-dialog .p-dialog-header {
+    background: $dl-header-bg !important;
+    border-bottom: 1px solid $dl-header-border !important;
+    border-color: unset !important;
+    padding: 1.1rem 1.5rem !important;
+    color: $dl-header-text !important;
+
+    .p-dialog-title {
+        font-size: 0.95rem !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.01em;
+        color: $dl-header-text !important;
+    }
+
+    .p-dialog-header-actions button {
+        color: $dl-text-muted !important;
+        background: transparent !important;
+        border: none !important;
+        border-radius: 8px !important;
+        transition:
+            color 0.15s,
+            background 0.15s;
+
+        &:hover {
+            color: #ffffff !important;
+            background: rgba(255, 255, 255, 0.08) !important;
+        }
+    }
+}
+
+// ── CONTENT ─────────────────────────────────────────────────
+
+.p-dialog .p-dialog-content {
+    background: $dl-content-bg !important;
+    border: none !important;
+    padding: 1.5rem !important;
+    color: $dl-text-primary !important;
+}
+
+// ── FOOTER (slot-driven via DataDialog) ─────────────────────
+
+.p-dialog .p-dialog-footer {
+    background: $dl-content-bg !important;
+    border-top: 1px solid $dl-footer-border !important;
+    padding: 1rem 1.5rem !important;
+}
+
+// ── FLEX CHILD BORDER FIX ───────────────────────────────────
+
+.p-dialog .p-dialog-content > div > .flex,
+.p-dialog .p-dialog-content > div > .flex:hover,
+.p-tabpanel.p-tabpanel-active > div > .flex,
+.p-drawer-content > div > .flex {
+    background: transparent !important;
+    border-bottom: none !important;
+}
+
+// ── INPUTS INSIDE DIALOG ────────────────────────────────────
+
+.p-dialog .p-inputtext,
+.p-dialog .p-textarea {
+    background: $dl-input-bg !important;
+    border: 1px solid $dl-input-border !important;
+    border-radius: 8px !important;
+    color: $dl-input-text !important;
+    transition: border-color 0.15s;
+
+    &:focus {
+        border-color: $dl-input-border-focus !important;
+        box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15) !important;
+        outline: none !important;
+    }
+
+    &:disabled {
+        opacity: 1 !important;
+        background: rgba(255, 255, 255, 0.02) !important;
+        color: $dl-text-muted !important;
+        cursor: not-allowed;
+    }
+}
+
+// ── SELECTS INSIDE DIALOG ───────────────────────────────────
+
+.p-dialog .p-select {
+    background: $dl-input-bg !important;
+    border: 1px solid $dl-input-border !important;
+    border-radius: 8px !important;
+
+    &:hover {
+        border-color: $dl-input-border-focus !important;
+    }
+
+    .p-select-label {
+        color: $dl-input-text !important;
+    }
+}

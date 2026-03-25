@@ -1,0 +1,225 @@
+// ── TOKENS ──────────────────────────────────────────────────
+//
+// Layout
+$dt-radius: 14px;
+//
+// Container
+$dt-container-bg: rgba(255, 255, 255, 0.03);
+$dt-container-border: rgba(255, 255, 255, 0.08);
+$dt-brand-top: #7c3aed;
+//
+// Header
+$dt-header-bg: rgba(255, 255, 255, 0.02);
+$dt-header-text: #ffffff;
+$dt-header-text-hover: #a78bfa;
+$dt-header-border: rgba(255, 255, 255, 0.06);
+//
+// Rows
+$dt-row-bg: #1e2038;
+$dt-row-bg-alt: #1b1d33;
+$dt-row-hover-border: #7c3aed;
+$dt-row-divider: rgba(255, 255, 255, 0.05);
+//
+// Text
+$dt-text-primary: #e2e8f0;
+$dt-text-muted: #64748b;
+//
+// Paginator
+$dt-pag-bg: rgba(255, 255, 255, 0.02);
+$dt-pag-border: rgba(255, 255, 255, 0.06);
+$dt-pag-btn: #ffffff;
+$dt-pag-btn-hover-bg: rgba(124, 58, 237, 0.15);
+$dt-pag-btn-hover-text: #a78bfa;
+$dt-pag-active-bg: #7c3aed;
+$dt-pag-active-glow: rgba(124, 58, 237, 0.35);
+
+// ── OUTER CONTAINER ─────────────────────────────────────────
+
+.p-datatable {
+    background: $dt-container-bg !important;
+    border: 1px solid $dt-container-border !important;
+    border-top: 2px solid $dt-brand-top !important;
+    border-radius: $dt-radius !important;
+    overflow: hidden;
+    color: $dt-text-primary;
+    backdrop-filter: blur(20px);
+}
+
+// ── HEADER ──────────────────────────────────────────────────
+
+.p-datatable thead > tr > th {
+    background: $dt-header-bg !important;
+    color: $dt-header-text !important;
+    font-size: 0.67rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.1em !important;
+    text-transform: uppercase !important;
+    padding: 0.9rem 1.1rem !important;
+    border-bottom: 1px solid $dt-header-border !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    white-space: nowrap;
+
+    .p-sortable-column-icon {
+        color: $dt-header-text !important;
+        font-size: 0.65rem !important;
+        opacity: 0.55;
+        margin-left: 4px;
+    }
+
+    &:hover {
+        background: rgba(124, 58, 237, 0.06) !important;
+        color: $dt-header-text-hover !important;
+
+        .p-sortable-column-icon {
+            color: $dt-header-text-hover !important;
+            opacity: 1;
+        }
+    }
+
+    &:focus {
+        box-shadow: none !important;
+        outline: none !important;
+    }
+}
+
+// ── BODY ROWS ───────────────────────────────────────────────
+
+.p-datatable tbody > tr {
+    &:nth-child(odd) > td {
+        background: $dt-row-bg !important;
+    }
+    &:nth-child(even) > td {
+        background: $dt-row-bg-alt !important;
+    }
+
+    &:hover {
+        background-color: transparent !important;
+    }
+
+    &:hover > td:first-child {
+        border-left: 2px solid $dt-row-hover-border !important;
+    }
+
+    > td {
+        color: $dt-text-primary !important;
+        padding: 0.9rem 1.1rem !important;
+        font-size: 0.875rem !important;
+        border-top: none !important;
+        border-left: none !important;
+        border-right: none !important;
+        border-bottom: 1px solid $dt-row-divider !important;
+        vertical-align: middle;
+    }
+
+    &:last-child > td {
+        border-bottom: none !important;
+    }
+}
+
+// ── PAGINATOR ───────────────────────────────────────────────
+
+nav.p-datatable-paginator-bottom,
+.p-datatable .p-paginator {
+    background: $dt-pag-bg !important;
+    border-top: 1px solid $dt-pag-border !important;
+    border-bottom: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-radius: 0 0 $dt-radius $dt-radius !important;
+    padding: 0.75rem 1.25rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.25rem !important;
+
+    button.p-paginator-first,
+    button.p-paginator-prev,
+    button.p-paginator-next,
+    button.p-paginator-last,
+    button.p-paginator-page {
+        background: transparent !important;
+        border: none !important;
+        color: $dt-pag-btn !important;
+        width: 32px !important;
+        height: 32px !important;
+        border-radius: 8px !important;
+        font-size: 0.8rem !important;
+        font-weight: 500 !important;
+        transition:
+            background 0.12s,
+            color 0.12s !important;
+        cursor: pointer !important;
+
+        &:not(.p-disabled):hover {
+            background: $dt-pag-btn-hover-bg !important;
+            color: $dt-pag-btn-hover-text !important;
+        }
+
+        &.p-disabled {
+            color: rgba(255, 255, 255, 0.2) !important;
+            cursor: not-allowed !important;
+        }
+    }
+
+    button.p-paginator-page-selected {
+        background: $dt-pag-active-bg !important;
+        color: #ffffff !important;
+        font-weight: 600 !important;
+        box-shadow: 0 0 12px $dt-pag-active-glow !important;
+        cursor: default !important;
+    }
+
+    span.p-paginator-current {
+        color: $dt-pag-btn;
+        font-size: 0.78rem;
+        font-weight: 500;
+        margin: 0 0.5rem;
+        user-select: text;
+    }
+
+    .p-select {
+        background: rgba(255, 255, 255, 0.04) !important;
+        border: 1px solid rgba(124, 58, 237, 0.3) !important;
+        border-radius: 8px !important;
+        min-width: 80px !important;
+
+        .p-select-label {
+            color: $dt-pag-btn-hover-text !important;
+            font-size: 0.8rem !important;
+        }
+
+        .p-select-dropdown svg path {
+            fill: $dt-pag-btn-hover-text !important;
+        }
+
+        &:hover {
+            border-color: $dt-pag-active-bg !important;
+        }
+    }
+}
+
+// ── EMPTY STATE ─────────────────────────────────────────────
+
+.p-datatable .p-datatable-empty-message td {
+    background: $dt-row-bg !important;
+    color: $dt-text-muted !important;
+    text-align: center !important;
+    padding: 3rem 1rem !important;
+    font-style: italic !important;
+    border: none !important;
+}
+
+// ── LOADING OVERLAY ─────────────────────────────────────────
+
+.p-datatable-loading-overlay,
+.p-datatable-mask {
+    background: rgba(30, 32, 56, 0.6) !important;
+    backdrop-filter: blur(2px);
+}
+
+.p-datatable .p-datatable-loading-icon {
+    color: $dt-pag-active-bg !important;
+    font-size: 2rem !important;
+}

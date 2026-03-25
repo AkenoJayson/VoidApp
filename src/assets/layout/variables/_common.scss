@@ -1,0 +1,15 @@
+:root {
+    --primary-color: #8b5cf6; /* vivid purple */
+    --primary-color-text: #ffffff; /* white text on primary */
+    --text-color: #e0e0e0; /* main text color */
+    --text-color-secondary: #a3a3c2; /* muted secondary text */
+    --surface-border: #3c3f58; /* subtle border */
+    --surface-card: #2a2a40; /* card background */
+    --surface-hover: #3c3f58; /* hover background */
+    --surface-overlay: rgba(46, 46, 62, 0.85); /* overlay background (semi-transparent) */
+    --transition-duration: 0.3s; /* smoother transition */
+    --maskbg: rgba(0, 0, 0, 0.6); /* modal mask background */
+    --border-radius: 6px; /* rounded corners */
+    --layout-section-transition-duration: 0.2s;
+    --focus-ring-shadow: 0 0 0 3px rgba(139, 92, 246, 0.5); /* purple focus ring */
+}
