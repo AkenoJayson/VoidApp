@@ -13,6 +13,7 @@ import 'remixicon/fonts/remixicon.css';
 import '@/assets/tailwind.css';
 import '@/assets/styles.scss';
 import '@/assets/datatable.scss';
+import '@/assets/accordion.scss';
 import '@/assets/dialog.scss';
 
 import { getPresetExt } from '@/layout/composables/layout';

@@ -1,0 +1,199 @@
+// ── TOKENS ──────────────────────────────────────────────────
+//
+// Layout
+$ac-radius: 14px;
+//
+// Container
+$ac-container-bg: rgba(255, 255, 255, 0.03);
+$ac-container-border: rgba(255, 255, 255, 0.08);
+$ac-brand-top: #7c3aed;
+//
+// Header
+$ac-header-bg: rgba(255, 255, 255, 0.02);
+$ac-header-text: #ffffff;
+$ac-header-text-hover: #a78bfa;
+$ac-header-border: rgba(255, 255, 255, 0.06);
+//
+// Content
+$ac-content-bg: #1e2038;
+$ac-content-bg-alt: #1b1d33;
+$ac-content-border: rgba(255, 255, 255, 0.05);
+$ac-active-border: #7c3aed;
+//
+// Text
+$ac-text-primary: #e2e8f0;
+$ac-text-muted: #64748b;
+
+// ── OUTER CONTAINER ─────────────────────────────────────────
+
+.p-accordion {
+    background: $ac-container-bg !important;
+    border: 1px solid $ac-container-border !important;
+    border-top: 2px solid $ac-brand-top !important;
+    border-radius: $ac-radius !important;
+    overflow: hidden;
+    color: $ac-text-primary;
+    backdrop-filter: blur(20px);
+}
+
+// ── PANELS ──────────────────────────────────────────────────
+// Covers both hyphenated (our classes) and non-hyphenated (PrimeVue v4 DOM)
+
+.p-accordionpanel,
+.p-accordion-panel {
+    border-bottom: 1px solid $ac-content-border !important;
+
+    &:last-child {
+        border-bottom: none !important;
+    }
+
+    // Active panel — left accent bar (mirrors datatable row hover)
+    &.p-accordion-panel-active > .p-accordion-header .p-accordion-header-link {
+        border-left: 2px solid $ac-active-border !important;
+        color: $ac-header-text-hover !important;
+        background: rgba(124, 58, 237, 0.06) !important;
+
+        .p-accordion-toggle-icon {
+            color: $ac-header-text-hover !important;
+            opacity: 1;
+        }
+    }
+}
+
+// ── HEADER ──────────────────────────────────────────────────
+// Covers both hyphenated (our classes) and non-hyphenated (PrimeVue v4 DOM button)
+
+.p-accordionheader,
+.p-accordion-header {
+    background: $ac-header-bg !important;
+
+    .p-accordion-header-link {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        background: $ac-header-bg !important;
+        color: $ac-header-text !important;
+        font-size: 0.875rem !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.02em !important;
+        padding: 0.9rem 1.1rem !important;
+        border: none !important;
+        border-left: 2px solid transparent !important;
+        cursor: pointer !important;
+        transition:
+            background 0.15s,
+            color 0.15s,
+            border-color 0.15s !important;
+
+        &:focus {
+            box-shadow: none !important;
+            outline: none !important;
+        }
+
+        &:hover {
+            background: rgba(124, 58, 237, 0.06) !important;
+            color: $ac-header-text-hover !important;
+
+            .p-accordion-toggle-icon {
+                color: $ac-header-text-hover !important;
+                opacity: 1;
+            }
+        }
+    }
+
+    .p-accordion-toggle-icon {
+        color: $ac-header-text !important;
+        font-size: 0.75rem !important;
+        opacity: 0.55;
+        transition:
+            color 0.15s,
+            opacity 0.15s !important;
+        flex-shrink: 0;
+    }
+
+    // VueDatePicker dark theme overrides
+    .dp__main {
+        --dp-background-color: #1e2038;
+        --dp-text-color: #e2e8f0;
+        --dp-hover-color: rgba(124, 58, 237, 0.15);
+        --dp-hover-text-color: #a78bfa;
+        --dp-hover-icon-color: #a78bfa;
+        --dp-primary-color: #7c3aed;
+        --dp-primary-text-color: #ffffff;
+        --dp-secondary-color: #1b1d33;
+        --dp-border-color: rgba(255, 255, 255, 0.12);
+        --dp-menu-border-color: rgba(255, 255, 255, 0.08);
+        --dp-border-color-hover: #7c3aed;
+        --dp-border-color-focus: #7c3aed;
+        --dp-disabled-color: #64748b;
+        --dp-icon-color: #a78bfa;
+        --dp-danger-color: #ef4444;
+        --dp-highlight-color: rgba(124, 58, 237, 0.1);
+    }
+
+    .dp__input_wrap {
+        background: transparent !important;
+    }
+
+    .dp__input {
+        background: rgba(255, 255, 255, 0.04) !important;
+        border-color: rgba(255, 255, 255, 0.12) !important;
+        color: #e2e8f0 !important;
+
+        &:hover {
+            border-color: #7c3aed !important;
+        }
+    }
+
+    .dp__icon {
+        color: #a78bfa !important;
+    }
+}
+
+// ── CONTENT ─────────────────────────────────────────────────
+// All three PrimeVue content layers need explicit dark backgrounds
+
+.p-accordioncontent,
+.p-accordioncontent-wrapper,
+.p-accordioncontent-content,
+.p-accordion-content {
+    background: $ac-content-bg !important;
+    color: $ac-text-primary !important;
+}
+
+.p-accordioncontent-content,
+.p-accordion-content {
+    padding: 1rem 1.25rem !important;
+    font-size: 0.875rem !important;
+    border-top: 1px solid $ac-header-border !important;
+    line-height: 1.6;
+
+    // Every second open panel gets the alt background
+    .p-accordionpanel:nth-child(even) &,
+    .p-accordion-panel:nth-child(even) & {
+        background: $ac-content-bg-alt !important;
+    }
+
+    // Inner chart card (Tailwind wrapper inside content)
+    > div > .rounded-xl {
+        background: rgba(255, 255, 255, 0.03) !important;
+        border-color: rgba(255, 255, 255, 0.08) !important;
+    }
+}
+
+// ── DISABLED STATE ───────────────────────────────────────────
+
+.p-accordionpanel.p-disabled,
+.p-accordion-panel.p-disabled {
+    .p-accordion-header-link {
+        color: $ac-text-muted !important;
+        cursor: not-allowed !important;
+        opacity: 0.5;
+
+        &:hover {
+            background: $ac-header-bg !important;
+            color: $ac-text-muted !important;
+            border-left-color: transparent !important;
+        }
+    }
+}

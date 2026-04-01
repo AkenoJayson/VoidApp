@@ -3,9 +3,11 @@ import { ref, onMounted, watch } from 'vue';
 import Chart from 'primevue/chart';
 import TransactionReportService from '@/services/voidapi/budget/transaction/TransactionReportService';
 import { endOfDay, endOfMonth, format, startOfDay, startOfMonth } from 'date-fns';
-import { DEFAULTDATEFORMAT } from '@/scripts/constants/DefaultDateFormats';
+import { DEFAULT_DATETIME_FORMAT, DEFAULTDATEFORMAT } from '@/scripts/constants/DefaultDateFormats';
 import DateRangePicker from '@/components/vue/DateRangePicker.vue';
 import TransactionService from '@/services/voidapi/budget/transaction/TransactionService';
+import ApiDataTable from '@/components/vue/ApiDataTable.vue';
+import { Accordion } from 'primevue';
 
 const isLoading = ref(true);
 const now = new Date();
@@ -16,6 +18,8 @@ const avgSpendData = ref();
 const monthlySpendOptions = ref();
 const avgSpendOptions = ref();
 const transactionCategoryOptions = ref([]);
+const showCategoryTable = ref(false);
+const showSubCategoryTable = ref(false);
 
 const textColor = '#e5e7eb';
 const textColorSecondary = '#9ca3af';
@@ -248,37 +252,113 @@ onMounted(async () => {
             <span>Loading charts...</span>
         </div>
         <div v-else class="space-y-12">
-            <section class="border-t border-gray-700 pt-8">
-                <div class="mb-6 flex items-center gap-3">
-                    <h3 class="text-lg font-semibold text-gray-200">Total Spent by Category</h3>
-
-                    <DateRangePicker v-model="filter.dateRange" class="w-full max-w-[17rem]" />
-                </div>
-
-                <div class="rounded-xl border border-gray-700 bg-gray-800 p-6 shadow-sm">
-                    <!-- Increased height to fix squish -->
-                    <div class="h-[600px] w-full">
-                        <Chart type="bar" :data="monthlySpendData" :options="monthlySpendOptions" class="h-full w-full" />
-                    </div>
-                </div>
-            </section>
-
-            <section class="border-t border-gray-700 pt-8">
-                <div class="mb-6 flex items-center gap-3">
-                    <h3 class="text-lg font-semibold text-gray-200">Total Spent by Subcategory</h3>
-
-                    <DateRangePicker v-model="filter.dateRange" class="w-full max-w-[17rem]" />
-                    <div>
-                        <Select v-model="filter.CategoryId" showClear filter :options="transactionCategoryOptions" option-label="text" option-value="id" placeholder="Select a category"></Select>
-                    </div>
-                </div>
-
-                <div class="flex items-center justify-center rounded-xl border border-gray-700 bg-gray-800 p-6 shadow-sm">
-                    <div class="flex h-[420px] w-full items-center justify-center">
-                        <Chart type="doughnut" :data="avgSpendData" :options="avgSpendOptions" class="h-full w-full max-w-[500px]" />
-                    </div>
-                </div>
-            </section>
+            <Accordion :multiple="true" :value="[]">
+                <AccordionPanel value="transactionPage">
+                    <AccordionHeader>
+                        <div class="mb-6 flex items-center gap-3">
+                            <h3 class="text-lg font-semibold text-gray-200">Transaction Report</h3>
+                        </div>
+                    </AccordionHeader>
+                    <AccordionContent>
+                        <div class="mb-6 flex items-center gap-3">
+                            <DateRangePicker v-model="filter.dateRange" class="w-full max-w-[17rem]" />
+                            <Select v-model="filter.CategoryId" showClear filter :options="transactionCategoryOptions" option-label="text" option-value="id" placeholder="Select a category"></Select>
+                        </div>
+                        <ApiDataTable ref="transactionApiDt" api-url="/api/transactionreport/TransactionPage" :filter="filter">
+                            <Column field="id" header="Ref" sortable></Column>
+                            <Column field="account" header="Account" sortable></Column>
+                            <Column field="userAccount" header="Account Holder" sortable></Column>
+                            <Column field="postingDate" header="Posting Date" sortable>
+                                <template #body="slotProps">
+                                    {{ slotProps.data.postingDate ? format(slotProps.data.postingDate, DEFAULTDATEFORMAT) : 'NA' }}
+                                </template>
+                            </Column>
+                            <Column field="transactionDate" header="Transaction Date" sortable>
+                                <template #body="slotProps">
+                                    {{ slotProps.data.transactionDate ? format(slotProps.data.transactionDate, DEFAULT_DATETIME_FORMAT) : 'NA' }}
+                                </template>
+                            </Column>
+                            <Column field="description" header="Description" sortable></Column>
+                            <Column field="category" header="Category" sortable></Column>
+                            <Column field="subCategory" header="Subcategory" sortable></Column>
+                            <Column field="amount" header="Amount" sortable>
+                                <template #body="slotProps">
+                                    <div>R {{ slotProps.data.amount ?? '-' }}</div>
+                                </template>
+                            </Column>
+                            <Column field="fee" header="Fee" sortable>
+                                <template #body="slotProps">
+                                    <div>R {{ slotProps.data.fee ?? '-' }}</div>
+                                </template>
+                            </Column>
+                        </ApiDataTable>
+                    </AccordionContent>
+                </AccordionPanel>
+                <AccordionPanel value="category">
+                    <AccordionHeader>
+                        <h3 class="text-lg font-semibold text-gray-200">Total Spent by Category</h3>
+                    </AccordionHeader>
+                    <AccordionContent>
+                        <div class="mb-6 flex items-center gap-3">
+                            <DateRangePicker v-model="filter.dateRange" class="w-full max-w-[17rem]" />
+                            <Select v-model="filter.CategoryId" showClear filter :options="transactionCategoryOptions" option-label="text" option-value="id" placeholder="Select a category"></Select>
+                            <button @click="showCategoryTable = !showCategoryTable" :title="showCategoryTable ? 'Show Chart' : 'Show Table'" class="rounded-full bg-indigo-900/50 p-2 text-indigo-300 transition-colors hover:bg-indigo-800 hover:text-white">
+                                <i :class="showCategoryTable ? 'pi pi-table' : 'pi pi-chart-bar'"></i>
+                            </button>
+                        </div>
+                        <div v-if="!showCategoryTable">
+                            <div class="rounded-xl border border-gray-700 bg-gray-800 p-6 shadow-sm">
+                                <!-- Increased height to fix squish -->
+                                <div class="h-[600px] w-full">
+                                    <Chart type="bar" :data="monthlySpendData" :options="monthlySpendOptions" class="h-full w-full" />
+                                </div>
+                            </div>
+                        </div>
+                        <div v-else>
+                            <ApiDataTable ref="transactionApiDt" api-url="/api/transactionreport/GetMonthlySpendPage" :filter="filter">
+                                <Column field="categoryName" header="Category" sortable></Column>
+                                <Column field="amount" header="Amount" sortable>
+                                    <template #body="slotProps">
+                                        <div>R {{ slotProps.data.amount ?? '-' }}</div>
+                                    </template>
+                                </Column>
+                            </ApiDataTable>
+                        </div>
+                    </AccordionContent>
+                </AccordionPanel>
+                <AccordionPanel value="subcategory">
+                    <AccordionHeader>
+                        <h3 class="text-lg font-semibold text-gray-200">Total Spent by Subcategory</h3>
+                    </AccordionHeader>
+                    <AccordionContent>
+                        <div class="mb-6 flex items-center gap-3">
+                            <DateRangePicker v-model="filter.dateRange" class="w-full max-w-[17rem]" />
+                            <Select v-model="filter.CategoryId" showClear filter :options="transactionCategoryOptions" option-label="text" option-value="id" placeholder="Select a category"></Select>
+                            <button @click="showSubCategoryTable = !showSubCategoryTable" :title="showSubCategoryTable ? 'Show Chart' : 'Show Table'" class="rounded-full bg-indigo-900/50 p-2 text-indigo-300 transition-colors hover:bg-indigo-800 hover:text-white">
+                                <i :class="showSubCategoryTable ? 'pi pi-table' : 'pi pi-chart-pie'"></i>
+                            </button>
+                        </div>
+                        <div v-if="!showSubCategoryTable">
+                            <div class="flex items-center justify-center rounded-xl border border-gray-700 bg-gray-800 p-6 shadow-sm">
+                                <div class="flex h-[420px] w-full items-center justify-center">
+                                    <Chart type="doughnut" :data="avgSpendData" :options="avgSpendOptions" class="h-full w-full max-w-[500px]" />
+                                </div>
+                            </div>
+                        </div>
+                        <div v-else>
+                            <ApiDataTable ref="transactionApiDt" api-url="/api/transactionreport/GetSubCategoryPage" :filter="filter">
+                                <Column field="parentCategoryName" header="Category" sortable></Column>
+                                <Column field="subCategoryName" header="Subcategory" sortable></Column>
+                                <Column field="totalAmount" header="Amount" sortable>
+                                    <template #body="slotProps">
+                                        <div>R {{ slotProps.data.totalAmount ?? '-' }}</div>
+                                    </template>
+                                </Column>
+                            </ApiDataTable>
+                        </div>
+                    </AccordionContent>
+                </AccordionPanel>
+            </Accordion>
         </div>
     </div>
 </template>

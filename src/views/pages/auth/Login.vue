@@ -136,13 +136,6 @@ onMounted(async () => {
                             </div>
 
                             <div>
-                                <label class="inline-flex select-none items-center gap-2">
-                                    <Checkbox name="checkbox" v-model="rememberMe" binary />
-                                    <span class="text-sm text-white/80">Remember me</span>
-                                </label>
-                            </div>
-
-                            <div>
                                 <Button label="Log In" class="pv-login-btn w-full rounded-xl border-0 px-6 py-3 font-semibold text-white shadow-lg transition hover:opacity-90" type="submit" form="loginForm" :disabled="isLoading" />
                             </div>
 
